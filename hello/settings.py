@@ -7,7 +7,11 @@ SECRET_KEY = 'django-insecure-m=#^3sap6&jsiky+=g8gari+-!@@3n)cwox^c@3)5&c4o4_jj#
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'hello-pet-app.herokuapp.com',
+]
 
 
 INSTALLED_APPS = [
