@@ -11,18 +11,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #
 # DEBUG = True
 #
-# ALLOWED_HOSTS = [
-#     'localhost',
-#     '127.0.0.1',
-#     'hello-pet-app.herokuapp.com',
-# ]
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'hello-pet-app.herokuapp.com',
+]
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT', 'Development')
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'sk')
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
 
 INSTALLED_APPS = [
