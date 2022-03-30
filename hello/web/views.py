@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -60,6 +60,16 @@ class PetPhotoDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'photo_details.html'
     context_object_name = 'pet_photo'
 
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+
+        viewed_pet_photos = request.session.get('last_viewed_pet_photo_ids', [])
+
+        viewed_pet_photos.insert(0, self.kwargs['pk'])
+        request.session['last_viewed_pet_photo_ids'] = viewed_pet_photos[:4]
+
+        return response
+
     def get_queryset(self):
         return super().get_queryset().prefetch_related('tagged_pets')
 
@@ -111,3 +121,11 @@ class EditPetView(UpdateView):
 class DeletePetView(DeleteView):
     template_name = 'pet_delete.html'
     form_class = DeletePetForm
+
+
+def like_pet_photo(request, pk):
+    pet_photo = PetPhoto.objects.get(pk=pk)
+    pet_photo.likes += 1
+    pet_photo.save()
+
+    return redirect('pet photo details', pk)
