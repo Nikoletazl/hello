@@ -1,5 +1,6 @@
 import time
 
+from cloudinary import  models as cloudinary_models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
@@ -104,11 +105,7 @@ class Pet(models.Model):
 
 
 class PetPhoto(models.Model):
-    photo = models.ImageField(
-        validators=(
-            validator_max_size,
-        )
-    )
+    photo = cloudinary_models.CloudinaryField('image')
 
     tagged_pets = models.ManyToManyField(
         Pet,
